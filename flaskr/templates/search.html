@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<title>Sample Search File</title>
+	</head>
+	<h2>Sample Search File</h2>
+	<form id="search_book" method="post">
+    	<input type="text" placeholder="Search File" id="search_query"/>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="file_content_display" style="visibility: hidden;">
+    	<p id="ile_content"></p>
+    </div>
+</html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+        $(document).on('submit', '#search_book', function(e){
+   e.preventDefault();
+
+   $.ajax({
+       type:'POST',
+       url:'../search_file',
+       data:{
+           query:$("#search_query").val(),
+       },
+       success:function(data, textStatus, jqXHR){
+       	document.getElementById("file_content_display").style.visibility = "visible"
+       	document.getElementById("ile_content").innerHTML = data
+       }
+   });
+});
+    </script>
