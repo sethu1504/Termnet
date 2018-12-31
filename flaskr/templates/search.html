@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    	<title>Sample Search File</title>
+    	<title>Just a Template</title>
 	</head>
-	<h2>Sample Search File</h2>
-	<form id="search_book" method="post">
-    	<input type="text" placeholder="Search File" id="search_query"/>
-        <button type="submit">Submit</button>
+	<h2>A Simple Template</h2>
+	<form id="search_term" method="post">
+      <div>
+        <div style="margin-bottom: 10px">
+          <input type="text" placeholder="Search Term" id="search_query"/>
+        </div>
+        <div>
+          <div id="positive" style="margin-bottom: 10px">
+            <input type="button" id="add" value="Add +ve Terms" onclick="AddTerms('pos');" />
+            <div id="positive_terms" style="margin-bottom: 10px">
+              
+            </div>
+          </div>
+        </div>
+        <div>
+          <div id="negative" style="margin-bottom: 10px">
+            <input type="button" id="add" value="Add -ve Terms" onclick="AddTerms('neg');" />
+            <div id="negative_terms" style="margin-bottom: 10px">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit">Generate Termnet</button>
     </form>
-    <div id="file_content_display" style="visibility: hidden;">
-    	<p id="ile_content"></p>
-    </div>
 </html>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-        $(document).on('submit', '#search_book', function(e){
-   e.preventDefault();
+        
+        function AddTerms(idType) {
+        if(idType === "pos")
+          var pos = $("#positive_terms")
+        else
+          var pos = $("#negative_terms")
+        pos.append('<div><input type="text" id="term" value="" style="margin-top: 10px" /> <input type="button" value="x" style="margin-left: 5px" onclick="removeItem(this);"/> </div>');
+    }
 
-   $.ajax({
-       type:'POST',
-       url:'../search_file',
-       data:{
-           query:$("#search_query").val(),
-       },
-       success:function(data, textStatus, jqXHR){
-       	document.getElementById("file_content_display").style.visibility = "visible"
-       	document.getElementById("ile_content").innerHTML = data
-       }
-   });
-});
+    function removeItem(element) {
+    // Removes an element from the document
+    var term_element = document.getElementById("term");
+    element.parentNode.removeChild(element);
+    term_element.parentNode.removeChild(term_element);
+}
+
     </script>
